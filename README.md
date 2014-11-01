@@ -5,24 +5,23 @@ Bootstrap styling and have the option to timeout messages.
 
 # Installation
 
-`bower install angular-bootstrap-flash-message`
+`bower install flash-message --save`
 
 # Usage
 
 ```js
 angular.controller("Test", [
  '$scope',
- 'flash',
- function($scope, flash) {
+ 'flashMessage',
+ function($scope, flashMessage) {
    flash.success({
      text: "Success message",
-     seconds: 10,
-     zone: 'form'
+     seconds: 10
    });
  }]);
 ```
 
-The module exports the `flash` service with the following methods:
+The module exports the `flashMessage` service with the following methods:
 
  * `flash.success`
  * `flash.danger`
@@ -38,5 +37,5 @@ And in order to render the flash messages, you must add the following directive 
 template:
 
 ```html
-<div flash:messages></div>
+<div flash-messages></div>
 ```
