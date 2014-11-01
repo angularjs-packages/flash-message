@@ -1,0 +1,25 @@
+{
+  "name": "flash-message",
+  "version": "0.0.0",
+  "homepage": "https://github.com/angularjs-packages/flash-message",
+  "authors": [
+    "ngohoaiphuong <ngohoai.phuong@gmail.com>"
+  ],
+  "description": "show simple message on web application, use flash bootstrap",
+  "main": "flash-message.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "flash",
+    "message"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
