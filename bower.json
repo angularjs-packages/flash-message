@@ -7,6 +7,9 @@
   ],
   "description": "show simple message on web application, use alert bootstrap",
   "main": "flash-message.js",
+  "moduleType": [
+    "globals"
+  ],
   "keywords": [
     "flash",
     "message"
