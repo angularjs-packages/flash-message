@@ -19,6 +19,7 @@ angular.module('flashMessage', [])
         }
       };
       var reset;
+      var index = 1;
       var cleanup = function(level) {
         $timeout.cancel(reset);
         reset = $timeout(function() {
@@ -37,7 +38,7 @@ angular.module('flashMessage', [])
           seconds: seconds,
           level: level,
           icon: flashMessageData[level].icon,
-          index: new Date().getMilliseconds(),
+          index: index++,
           className: classNames[level]
         })
         callEmit();
@@ -73,7 +74,9 @@ angular.module('flashMessage', [])
           var levels = ['success', 'warning', 'error', 'info'];
 
           $scope.closeFlashMessage = function(index) {
-            angular.element('#flashMessage-' + index).remove();
+            angular.element('#flashMessage-' + index).fadeOut('normal', function() {
+              this.remove();
+            });
           }
 
           $rootScope.$on('flash-message', function(_, messages, done) {
@@ -83,12 +86,14 @@ angular.module('flashMessage', [])
                 angular.forEach(messages[level], function(message) {
                   $scope.messages.push(message);
                   if (message.seconds === 0) return;
-                  // $timeout(
-                  //   function() {
-                  //     angular.element('#flashMessage-' + message.index).remove();
-                  //   },
-                  //   message.seconds * 1000
-                  // );
+                  $timeout(
+                    function() {
+                      angular.element('#flashMessage-' + message.index).fadeOut('normal', function() {
+                        this.remove();
+                      });
+                    },
+                    message.seconds * 1000
+                  );
                 });
                 done(level);
               };
