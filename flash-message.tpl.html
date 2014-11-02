@@ -1,0 +1,10 @@
+<div ng-repeat='m in messages'>
+  <div id='flashMessage-{{ m.index }}' class='alert alert-{{ m.className }}'>
+    <icon ng-if='m.icon' class='glyphicon glyphicon-{{ m.icon }}'>
+    </icon>
+    {{ m.message }}
+    <button type='button' class='close' ng-click='closeFlashMessage(m.index)' aria-hidden='true'>
+     &times; 
+    </button>
+  </div>
+</div>

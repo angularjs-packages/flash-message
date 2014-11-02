@@ -24,7 +24,7 @@ angular.controller("Test", [
 The module exports the `flashMessage` service with the following methods:
 
  * `flash.success`
- * `flash.danger`
+ * `flash.error`
  * `flash.info`
  * `flash.warning`
 
