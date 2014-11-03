@@ -80,7 +80,7 @@ angular.module('flashMessage', [])
           }
 
           $rootScope.$on('flash-message', function(_, messages, done) {
-            $scope.messages = [];
+            // $scope.messages = [];
             angular.forEach(levels, function(level) {
               if (messages[level].length) {
                 angular.forEach(messages[level], function(message) {

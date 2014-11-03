@@ -1,18 +1,16 @@
 {
   "name": "flash-message",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "homepage": "https://github.com/angularjs-packages/flash-message",
   "authors": [
     "ngohoaiphuong <ngohoai.phuong@gmail.com>"
   ],
   "description": "show simple message on web application, use alert bootstrap",
   "main": "flash-message.js",
-  "moduleType": [
-    "globals"
-  ],
   "keywords": [
     "flash",
-    "message"
+    "message",
+    "flash-message"
   ],
   "license": "MIT",
   "ignore": [
@@ -33,6 +31,7 @@
     "json3": "~3.2.4",
     "es5-shim": "~2.0.8",
     "bootstrap": "~2.3.2",
-    "font-awesome": "~3.2.1"
+    "font-awesome": "~3.2.1",
+    "lodash": "latest"
   }  
 }
