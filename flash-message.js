@@ -74,6 +74,7 @@ angular.module('flashMessage', [])
           var levels = ['success', 'warning', 'error', 'info'];
 
           $scope.closeFlashMessage = function(index) {
+            $scope.messages = _.reject($scope.messages, {index: index});
             angular.element('#flashMessage-' + index).fadeOut('normal', function() {
               this.remove();
             });
@@ -88,6 +89,7 @@ angular.module('flashMessage', [])
                   if (message.seconds === 0) return;
                   $timeout(
                     function() {
+                      $scope.messages = _.reject($scope.messages, {index: message.index});
                       angular.element('#flashMessage-' + message.index).fadeOut('normal', function() {
                         this.remove();
                       });
