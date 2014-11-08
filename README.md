@@ -14,7 +14,7 @@ angular.controller("Test", [
  '$scope',
  'flashMessage',
  function($scope, flashMessage) {
-   flash.success({
+   flashMessage.success({
      message: "Success message",
      seconds: 10
    });
