@@ -20,26 +20,21 @@ angular.module('flashMessage', [])
       };
       var reset;
       var index = 1;
-      var cleanup = function(level) {
-        $timeout.cancel(reset);
-        reset = $timeout(function() {
-          messages[level] = [];
-        });
-      };
       var callEmit = function() {
-        $rootScope.$emit('flash-message', messages, cleanup);
+        $rootScope.$emit('flash-message', messages);
       };
 
       $rootScope.$on('$locationChangeSuccess', callEmit);
 
-      flashMessageFunction  = function(message, level, seconds) {
+      flashMessageFunction  = function(message, level, seconds, done) {
         messages[level].push({
           message: message,
           seconds: seconds,
           level: level,
           icon: flashMessageData[level].icon,
           index: index++,
-          className: classNames[level]
+          className: classNames[level],
+          callback: done
         })
         callEmit();
       };
@@ -53,7 +48,8 @@ angular.module('flashMessage', [])
           flashMessageFunction(
             option.message || '', 
             level, 
-            option.seconds || 10
+            option.seconds || 2,
+            option.callback || undefined
           );
         }
       });
@@ -72,16 +68,18 @@ angular.module('flashMessage', [])
       controller: [ '$scope', '$rootScope', '$timeout',
         function($scope, $rootScope, $timeout) {
           var levels = ['success', 'warning', 'error', 'info'];
-
           $scope.closeFlashMessage = function(index) {
+            var done = _.find($scope.messages, {index: index}).callback;
+            if(done) {
+              done();
+            }
             $scope.messages = _.reject($scope.messages, {index: index});
             angular.element('#flashMessage-' + index).fadeOut('normal', function() {
               this.remove();
             });
           }
 
-          $rootScope.$on('flash-message', function(_, messages, done) {
-            // $scope.messages = [];
+          $rootScope.$on('flash-message', function(self, messages) {
             angular.forEach(levels, function(level) {
               if (messages[level].length) {
                 angular.forEach(messages[level], function(message) {
@@ -89,6 +87,10 @@ angular.module('flashMessage', [])
                   if (message.seconds === 0) return;
                   $timeout(
                     function() {
+                      var cb = _.find($scope.messages, {index: message.index}).callback;
+                      if (cb) {
+                        cb();
+                      }
                       $scope.messages = _.reject($scope.messages, {index: message.index});
                       angular.element('#flashMessage-' + message.index).fadeOut('normal', function() {
                         this.remove();
@@ -97,7 +99,6 @@ angular.module('flashMessage', [])
                     message.seconds * 1000
                   );
                 });
-                done(level);
               };
             });
           })
