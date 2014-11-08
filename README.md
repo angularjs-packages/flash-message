@@ -15,7 +15,7 @@ angular.controller("Test", [
  'flashMessage',
  function($scope, flashMessage) {
    flash.success({
-     text: "Success message",
+     message: "Success message",
      seconds: 10
    });
  }]);
@@ -30,8 +30,9 @@ The module exports the `flashMessage` service with the following methods:
 
 Each of these methods take two arguments:
  
- * the flash message
- * (optional) timeout to delete the flash message, in seconds
+ * `message`  the flash message
+ * `seconds`  (optional) timeout to delete the flash message (default 2 seconds)
+ * `callback` (optional) callback function (default `undefined`)
 
 And in order to render the flash messages, you must add the following directive in your
 template:
