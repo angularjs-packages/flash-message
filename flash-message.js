@@ -20,8 +20,14 @@ angular.module('flashMessage', [])
       };
       var reset;
       var index = 1;
+      var cleanup = function(level) {
+        $timeout.cancel(reset);
+        reset = $timeout(function() {
+          messages[level] = [];
+        });
+      };      
       var callEmit = function() {
-        $rootScope.$emit('flash-message', messages);
+        $rootScope.$emit('flash-message', messages, cleanup);
       };
 
       $rootScope.$on('$locationChangeSuccess', callEmit);
@@ -79,7 +85,7 @@ angular.module('flashMessage', [])
             });
           }
 
-          $rootScope.$on('flash-message', function(self, messages) {
+          $rootScope.$on('flash-message', function(self, messages, done) {
             angular.forEach(levels, function(level) {
               if (messages[level].length) {
                 angular.forEach(messages[level], function(message) {
@@ -99,6 +105,7 @@ angular.module('flashMessage', [])
                     message.seconds * 1000
                   );
                 });
+                done(level);
               };
             });
           })
